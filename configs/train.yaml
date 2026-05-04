@@ -1,0 +1,41 @@
+# Training configuration
+train:
+  # Data
+  data_dir: "data/"
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  
+  # Training parameters
+  batch_size: 8
+  num_epochs: 100
+  learning_rate: 1e-4
+  weight_decay: 1e-5
+  warmup_steps: 1000
+  
+  # Optimization
+  optimizer: "adamw"  # adam, adamw, sgd
+  scheduler: "cosine"  # cosine, linear, step
+  gradient_clip_norm: 1.0
+  
+  # Mixed precision
+  mixed_precision: true
+  
+  # Checkpointing
+  save_every: 10
+  save_best: true
+  checkpoint_dir: "checkpoints/"
+  
+  # Logging
+  log_every: 100
+  log_dir: "logs/"
+  use_wandb: false
+  wandb_project: "av-source-separation"
+  
+  # Reproducibility
+  seed: 42
+  deterministic: true
+  
+  # Early stopping
+  patience: 20
+  min_delta: 1e-4

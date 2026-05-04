@@ -1,0 +1,55 @@
+# Model configuration for Audio-Visual Source Separation
+model:
+  name: "AVSourceSeparator"
+  architecture: "cross_attention"  # late_fusion, early_fusion, cross_attention
+  
+  # Visual encoder
+  visual_encoder:
+    type: "resnet50"  # resnet50, vit_base, convnext
+    pretrained: true
+    freeze_backbone: false
+    output_dim: 2048
+    
+  # Audio encoder  
+  audio_encoder:
+    type: "conv1d"  # conv1d, transformer, conformer
+    input_channels: 1
+    hidden_dim: 512
+    num_layers: 6
+    kernel_size: 3
+    
+  # Fusion module
+  fusion:
+    type: "cross_attention"
+    hidden_dim: 512
+    num_heads: 8
+    num_layers: 4
+    dropout: 0.1
+    
+  # Separation decoder
+  decoder:
+    type: "conv_transpose"
+    output_channels: 2  # number of sources to separate
+    kernel_size: 3
+    stride: 2
+    
+  # Training parameters
+  learning_rate: 1e-4
+  weight_decay: 1e-5
+  batch_size: 8
+  num_epochs: 100
+  
+  # Audio processing
+  sample_rate: 16000
+  n_fft: 1024
+  hop_length: 256
+  n_mels: 80
+  
+  # Video processing
+  video_fps: 25
+  frame_size: [224, 224]
+  
+  # Device configuration
+  device: "auto"  # auto, cuda, mps, cpu
+  mixed_precision: true
+  compile_model: false  # PyTorch 2.0 compilation

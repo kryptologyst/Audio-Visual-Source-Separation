@@ -1,0 +1,32 @@
+# Evaluation configuration
+eval:
+  # Metrics to compute
+  metrics:
+    audio:
+      - "si_sdr"  # Scale-Invariant Signal-to-Distortion Ratio
+      - "sdr"     # Signal-to-Distortion Ratio  
+      - "pesq"    # Perceptual Evaluation of Speech Quality
+      - "stoi"    # Short-Time Objective Intelligibility
+      
+    visual:
+      - "face_detection_accuracy"
+      - "speaker_matching_accuracy"
+      
+    separation:
+      - "source_to_distortion_ratio"
+      - "source_to_interference_ratio"
+      
+  # Evaluation settings
+  batch_size: 16
+  num_workers: 4
+  
+  # Output
+  save_predictions: true
+  save_visualizations: true
+  output_dir: "assets/evaluation/"
+  
+  # Visualization
+  save_spectrograms: true
+  save_waveforms: true
+  save_attention_maps: true
+  max_samples_to_visualize: 10
